@@ -68,3 +68,6 @@ examples/heart.txt
 __pycache__
 .pytest_cache
 node_modules
+e2e_tests/out_*
+e2e_tests/output.xml
+e2e_tests/*.html

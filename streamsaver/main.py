@@ -1,5 +1,5 @@
 import argparse
-from streamsaver.streamsaver import transform
+from streamsaver.pipeline import transform
 
 def parse_args():
     parser = argparse.ArgumentParser(description='Process some integers.')
@@ -18,6 +18,9 @@ def parse_args():
 
     return parser.parse_args()
 
-if __name__ == "__main__":
+def main():
     args = parse_args()
     transform(args.uri, args.out, args.dest, args.num_buffers)
+
+if __name__ == "__main__":
+    main()

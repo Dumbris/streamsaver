@@ -1,5 +1,5 @@
 import unittest
-from streamsaver.streamsaver import Rtp2mp4, Rtp2jpeg, GstPipeline
+from streamsaver.pipeline import Rtp2mp4, Rtp2jpeg, GstPipeline
 from streamsaver.helpers import elmake
 from gi.repository import GObject, Gst
 from time import sleep
