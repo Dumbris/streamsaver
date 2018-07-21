@@ -1,4 +1,3 @@
-import sys
 import time
 import gi
 gi.require_version('Gst', '1.0')
@@ -45,8 +44,8 @@ class Rtp2mp4(Gst.Bin):
 
 class Rtp2jpeg(Gst.Bin):
     """Bin for h264 video convertation in to mp4 container
-       Corresponds to "rtph264depay ! decodebin ! videoconvert ! videoscale ! 
-       videorate ! video/x-raw,framerate=1/10 ! queue leaky=2 max-size-buffers=10 ! 
+       Corresponds to "rtph264depay ! decodebin ! videoconvert ! videoscale !
+       videorate ! video/x-raw,framerate=1/10 ! queue leaky=2 max-size-buffers=10 !
        jpegenc idct-method=1 quality=100" pipeline
     """
     def __init__(self):
@@ -138,7 +137,7 @@ class GstPipeline():
         finally:
             #wait to make sure all data chunks will be written on disk
             time.sleep(0.5)
-        
+
         # cleanup
         self.pipeline.set_state(Gst.State.NULL)
 
@@ -183,10 +182,19 @@ class GstPipeline():
         string = pad.query_caps(None).to_string()
         if string.startswith('application/x-rtp, media=(string)video'):
             pad.link(self.filter1.get_static_pad('sink'))
-    
+
 
 
 def transform(input_uri, out_type, out_file, num_buffers=-1):
+    """Creates GStreamer pipeline using source URI and output type and location
+        parameters
+        ------------------
+        input_uri - URI locator for source video stream
+        out_type - type of output file/s. Options "mp4", "frames"
+        out_file - output file name, e.g. /tmp/out.mp4 or /tmp/out_%d.jpg (for multiple jpg files)
+        num_buffer - limit for input frames
+
+    """
     src = element_make_from_uri(input_uri)
     if not src:
         raise Exception("Invalid source for URI {}".format(input_uri))
@@ -200,11 +208,11 @@ def transform(input_uri, out_type, out_file, num_buffers=-1):
     transcoder = None
     sink = None
 
-    if out_type == "mp4": 
-        transcoder = Rtp2mp4() 
+    if out_type == "mp4":
+        transcoder = Rtp2mp4()
         sink = elmake("filesink", location=out_file)
 
-    elif out_type == "frame": 
+    elif out_type == "frame":
         transcoder = Rtp2jpeg()
         sink = elmake("multifilesink", location=out_file)
     else:
