@@ -28,14 +28,14 @@ Set Up Dir
 Transform Udp Mp4
     [Documentation]   Run python script
     [Tags]    python
-    ${CMD_RES}=    Run Process    ${TEST_RUN} -o mp4 -d ${OUT_DIR}/out.mp4   shell=True	timeout=3min  stdout=${TEMPDIR}/stdout.txt	stderr=${TEMPDIR}/stderr.txt
+    ${CMD_RES}=    Run Process    ${TEST_RUN} -o mp4 -d ${OUT_DIR}/out.mp4   shell=True	timeout=1min  stdout=${TEMPDIR}/stdout.txt	stderr=${TEMPDIR}/stderr.txt
     Log Many	stdout: ${CMD_RES.stdout}	stderr: ${CMD_RES.stderr}
     Should Be Equal As Integers   ${CMD_RES.rc}   0
 
 Transform Udp Frames
     [Documentation]   Run python script
     [Tags]    python
-    ${CMD_RES}=    Run Process    ${TEST_RUN} -o frame -d ${OUT_DIR}/out%00d.jpg   shell=True	timeout=3min  stdout=${TEMPDIR}/stdout.txt	stderr=${TEMPDIR}/stderr.txt
+    ${CMD_RES}=    Run Process    ${TEST_RUN} -o frame -d ${OUT_DIR}/out%00d.jpg   shell=True	timeout=1min  stdout=${TEMPDIR}/stdout.txt	stderr=${TEMPDIR}/stderr.txt
     Log Many	stdout: ${CMD_RES.stdout}	stderr: ${CMD_RES.stderr}
     Should Be Equal As Integers   ${CMD_RES.rc}   0
 
