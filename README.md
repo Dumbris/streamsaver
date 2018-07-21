@@ -1,4 +1,4 @@
-# Quick start
+# Quickstart
 
 This utility allows saving video streams into local files.
 
@@ -49,7 +49,7 @@ After this command `transform` will become available in the PATH of the virtual 
 
 `python setup.py sdist`
 
-to install built package run
+to install the built package run
 
 `pip install dist/streamsaver-1.0.2.tar.gz`
 
