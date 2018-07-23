@@ -31,9 +31,21 @@ Save stream into series of jpg files.
 for development:
 virtualenv setuptools (can be installed with `pip3 install virtualenv setuptools`)
 
+## Using `streamsaver` as library
+
+To call transform function from you python script you can import `streamsaver` and use streamsaver.pipeline.transform directly.
+```python
+from streamsaver.pipeline import transform
+
+transform("udp://host:6002", "mp4", "/tmp/out.mp4")
+```
+
+Also, see `examples\appsink_example.py`. In this example, the numpy calculates the mean of pixels on a video stream.
+
+
 ## Setup development environment
 
-```
+```bash
 git clone [url]
 cd streamsaver
 virtualenv -p /usr/bin/python3 .pyenv
@@ -59,15 +71,18 @@ to install the built package run
 
 ## To run e2e tests
 
+Testing the video processing pipeline requires a source of a signal. Complex pipelines can be distributed on several hosts, and you need an orchestration tool to run tests.  So I am using robot framework for automatization. 
+
 install requirements  
-```
+```bash
 sudo pip3 install robotframework
 sudo apt install ffmpeg
 ```
 
 to run tests
-```
+```bash
 cd e2e_tests
 robot test_transform.robot
 ```
+Than open report.html, log.html
 

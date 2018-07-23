@@ -98,7 +98,7 @@ class Rtp2jpeg(Gst.Bin):
 class GstPipeline():
     """Base class that combine source, video decoder and output element into runable Gst pipeline
     """
-    def __init__(self, src, video, filesink):
+    def __init__(self, src, video, filesink=None):
         """params
         --------------------
             src - source element, e.g. tcpsrc, udpsrc
@@ -166,16 +166,19 @@ class GstPipeline():
         self.src.connect("pad-added", self._src_pad_added)
         for item in ( self.src,
                            self.filter1,
-                           self.video,
-                           self.filesink):
+                           self.video):
             if item:
                 self.pipeline.add(item)
             else:
                 raise Exception("Element null")
 
+        if self.filesink:
+            self.pipeline.add(self.filesink)
+
         self.src.link(self.filter1)
         self.filter1.link(self.video)
-        self.video.link(self.filesink)
+        if self.filesink:
+            self.video.link(self.filesink)
 
 
     def _src_pad_added(self, element, pad):
